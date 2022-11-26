@@ -23,3 +23,14 @@
 # Removable storage
 /external_sd    auto   /dev/block/mmcblk1p1                                      flags=display="MicroSD";storage;wipeingui;removable
 /usb_otg        auto   /dev/block/sda1                          /dev/block/sda   flags=display="USB OTG";storage;wipeingui;removable
+
+#TODO: Add 'check' as fs_mgr_flags with data partition.
+# Currently we dont have e2fsck compiled. So fs check would failed.
+
+# Non-A/B fstab.qcom variant
+#<src>                                                   <mnt_point>           <type>  <mnt_flags and options>                                                                            <fs_mgr_flags>
+system                                                   /system               ext4    rw,barrier=1,discard                                                                               wait,logical
+system_ext                                               /system_ext           ext4    rw,barrier=1,discard                                                                               wait,logical
+product                                                  /product              ext4    rw,barrier=1,discard                                                                               wait,logical
+vendor                                                   /vendor               ext4    rw,barrier=1,discard                                                                               wait,logical
+odm                                                      /odm                  ext4    rw,barrier=1,discard                                                                               wait,logical
