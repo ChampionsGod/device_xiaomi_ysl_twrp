@@ -4,6 +4,13 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+on init
+    start detect-dynamic-partitions
+
+on boot
+    start health-hal-2-1
+    setprop sys.usb.config adb
+
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
@@ -89,4 +96,10 @@ service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service-qti
     user root
     group root
     disabled
+    seclabel u:r:recovery:s0
+service detect-dynamic-partitions /system/bin/detect-dynamic-partitions.sh
+    user root
+    group root
+    disabled
+    oneshot
     seclabel u:r:recovery:s0
